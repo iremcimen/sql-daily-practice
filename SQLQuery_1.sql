@@ -1,18 +1,11 @@
 USE Company_DB
 GO
 
+-- Tüm kayıtları getir
+SELECT * FROM employee;
+
 --İlk 1000 satırı getir
-SELECT TOP (1000) [EmployeeID]
-      ,[FirstName]
-      ,[LastName]
-      ,[Age]
-      ,[Gender]
-      ,[Department]
-      ,[JobRole]
-      ,[Salary]
-      ,[YearsAtCompany]
-      ,[HireDate]
-  FROM [Company_DB].[dbo].[employee]
+SELECT TOP 1000 * FROM employee;
 
 
 --/ ORDER BY --
@@ -24,7 +17,7 @@ ORDER BY Salary DESC;
 
 -- Çalışanlar isimlerine göre artan(a-z), maaş ve çalışma yıllarına göre azalan sırada sıralanır
 SELECT EmployeeID, FirstName, YearsAtCompany, Salary FROM employee
-ORDER BY FirstName ASC, Salary,YearsAtCompany DESC;
+ORDER BY FirstName ASC, Salary DESC,YearsAtCompany DESC;
 
 
 --/ SELECT DISTINCT --
@@ -55,13 +48,54 @@ WHERE Department = 'IT';
 
 --/ LIKE --
 
+-- İsmi Me ile başlayan çalışanlar getirilir
+SELECT * FROM employee
+WHERE FirstName LIKE 'me%';
+
+
+-- Ö ile başlayıp bir joker karakter sonra tü ile devam eden ve sonra iki joker karakter içeren soyadlara sahip çalıaşnlar
+SELECT * FROM employee
+WHERE LastName LIKE 'ö_tü__';
+
+
+-- İçinde L harfi bulunlar isimlere sahip çalışanlar getirilir
+SELECT * FROM employee
+WHERE FirstName LIKE '%L%';
+
+
+-- İsmi T ile biten çalışanlar getirilir
+SELECT * FROM employee
+WHERE FirstName LIKE '%t';
+
+
+-- İsmi C ile başlayıp T ile biten çalışanlar getirilir
+SELECT * FROM employee
+WHERE FirstName LIKE 'C%N';
+
+
+--İsmi E ile başlayıp en az 4 karakter uzunluğunda olan çalışanlar
+SELECT * FROM employee
+WHERE FirstName LIKE 'E___%';
+
+
+-- İsmi B, S, K ile başlayan çalışanlar
+SELECT * FROM employee
+WHERE FirstName LIKE '[bsk]%';
+
+
+-- İsimleri A-B-C-D-E-F ile başlayan çalışanlar getirilir.
+SELECT * FROM employee
+WHERE FirstName LIKE '[A-F]%'; 
+
+
+-- İsmi Ali olan çalışanlar getirilir.
+SELECT * FROM employee
+WHERE FirstName LIKE 'Ali';
+
+
 -- BI Analyst olan ve ismi C ile başlayan çalışanlar listelenir
 SELECT * FROM employee
 WHERE JobRole = 'BI Analyst' AND FirstName LIKE 'C%';
-
--- LIKE '[BSP]%' = İsimleri B,S,P ile başlayan çalışanlar getirilir.
--- LIKE '[A-F]%' = İsimleri A-B-C-D-E-F ile başlayan çalışanlar getirilir.
--- LIKE 'Bahar' = İsmi Bahar olan çalışanlar getirilir.
 
 
 --/ AND --
@@ -179,9 +213,127 @@ DELETE FROM employee
 WHERE EmployeeID = 440;
 
 
--- Tablonun içini boşaltır. Sadece dataları siler.
+-- Tüm verileri siler. Tablo kalır.
 DELETE FROM employee;
 
 
--- Tabloyu tamamen siler. Datalarla birlikte tabloyu da siler.
-DROP TABLE employee;
+-- Tabloyu tamamen siler.
+-- DROP TABLE employee;
+
+
+--/ SELECT TOP --
+
+-- employee tablosundan ilk 3 satırı getir
+SELECT TOP 3 * FROM employee;
+
+
+-- Kayıtların ilk yarısını getir
+SELECT TOP 50 PERCENT * FROM employee;
+
+
+-- IT departmanındaki ilk 3 kayıt getirilir
+SELECT TOP 3 * FROM employee
+WHERE Department = 'IT';
+
+
+-- Yaşa göre azalan sırada ilk 10 kaydı getir.
+SELECT TOP 10 * FROM employee
+ORDER BY Age DESC;
+
+---// SQL Aggregate Functions --
+
+--/ MIN -- 
+
+-- Seçilen Salary sütunundaki en küçük değeri getirir
+SELECT MIN(Salary) AS MinSalary
+FROM employee;
+
+
+--/ MAX --
+
+-- Seçilen Salary sütunundaki en büyük değeri getirir 
+SELECT MAX(Salary) AS MaxSalary
+FROM employee;
+
+
+-- En yüksek kadın maaşı
+SELECT MAX(Salary) AS FemaleMaxSalary
+FROM employee
+WHERE Gender = 'Female';
+
+
+-- Departmanlardaki en düşük maaşlar
+SELECT MIN(Salary) AS MinSalary, Department
+FROM employee
+GROUP BY Department;
+
+
+--/ COUNT -- 
+
+-- Tabloda kaç kayıt olduğunu öğreniriz
+SELECT COUNT(*) AS [Number of Records]
+FROM employee;
+
+
+-- 59 yaşının üstündeki çalışanların sayısı
+SELECT COUNT(EmployeeID)
+FROM employee
+WHERE Age > 59;
+
+
+-- Kaç çeşit iş rolü var
+SELECT COUNT(DISTINCT JobRole)
+FROM employee;
+
+
+-- Her departmanda kaç çalışan var
+SELECT COUNT(*) AS [Number of Employees], Department
+FROM employee
+GROUP BY Department;
+
+
+--/ SUM --
+
+-- Çalışanlara ödenen toplam maaş
+SELECT SUM(Salary)
+FROM employee;
+
+
+-- Customer Support departmanına ödenen toplam maaş
+SELECT SUM(Salary)
+FROM employee
+WHERE Department = 'Customer Support';
+
+
+-- Departmanlara ödenen toplam maaşlar
+SELECT SUM(Salary) AS [Total Salary], Department
+FROM employee
+GROUP BY Department;
+
+
+--/ AVG --
+
+-- Çalışanlara verilen ortalama maaş
+SELECT AVG(Salary) AS [AVG Salary]
+FROM employee;
+
+
+-- IT departmanında bir çalışana verilen ortalama maaş
+SELECT AVG(Salary)
+FROM employee
+WHERE Department = 'IT';
+
+
+-- Ortalama maaştan daha yüksek maaş alan çalışanlar getirilir
+SELECT * FROM employee
+WHERE Salary > (SELECT AVG(Salary) FROM employee);
+
+-- Bu çalışanların sayısı
+SELECT COUNT(*) FROM employee
+WHERE Salary > (SELECT AVG(Salary) FROM employee);
+
+
+-- Departmanlardaki ortalama maaşlar
+SELECT AVG(Salary) AS [AVG Salary], Department
+FROM employee
+GROUP BY Department;
