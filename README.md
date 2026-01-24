@@ -20,4 +20,8 @@ SQL’in temel kavramlarını sağlam bir şekilde öğrenmek ve pekiştirmektir
 - DELETE
 - NULL kontrolleri (IS NULL / IS NOT NULL)
 - DROP TABLE
+- SQL Aggregate Functions (MIN, MAX, COUNT, SUM, AVG)
+- IN / NOT IN
+- IN (SELECT) – Alt sorgular (Subqueries)
+- BETWEEN
 - 
