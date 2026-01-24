@@ -328,6 +328,7 @@ WHERE Department = 'IT';
 SELECT * FROM employee
 WHERE Salary > (SELECT AVG(Salary) FROM employee);
 
+
 -- Bu çalışanların sayısı
 SELECT COUNT(*) FROM employee
 WHERE Salary > (SELECT AVG(Salary) FROM employee);
@@ -337,3 +338,60 @@ WHERE Salary > (SELECT AVG(Salary) FROM employee);
 SELECT AVG(Salary) AS [AVG Salary], Department
 FROM employee
 GROUP BY Department;
+
+
+--/ IN -- (Birden fazla OR koşulunun kısaltmasıdır.)
+
+-- Departmanı Sales veya Finance veya Operations olan çalışanları getir.
+SELECT * FROM employee
+WHERE Department IN ('Sales', 'Finance', 'Operations');
+
+
+--/ NOT IN --
+
+-- Departmanı Sales veya Finance veya Operations olmayan çalışanları getir.
+SELECT * FROM employee
+WHERE Department NOT IN ('Sales', 'Finance', 'Operations');
+
+
+--/ IN (SELECT) --  (Kesişim kümesi)
+
+-- Projesi olan çalışanları getir
+SELECT * FROM employee
+WHERE EmployeeID IN (SELECT EmployeeID FROM projects);
+
+
+--/ NOT IN (SELECT) --
+
+-- Projesi olmayan çalışanları getir
+SELECT * FROM employee
+WHERE EmployeeID NOT IN (SELECT EmployeeID FROM projects);
+
+
+--/ BETWEEN --
+
+-- Maaşı 80bin ve 100bin arasında olan çalışanları getir
+SELECT * FROM employee
+WHERE Salary BETWEEN 80000 AND 100000;
+
+
+-- Maaşı 80bin ve 100bin arasında olmayan çalışanları getir
+SELECT * FROM employee
+WHERE Salary NOT BETWEEN 80000 AND 100000;
+
+
+-- Yaşı 50 ve 60 arasında olan IT veya Finance veya Sales departmanlarında çalışanlar.
+SELECT * FROM employee
+WHERE Age BETWEEN 50 AND 60
+AND Department IN ('IT', 'Finance', 'Sales');
+
+
+-- Ali ve Zeynep isimlerinin arasında olan çalışanlar alfabetik sırayla wgetirildi
+SELECT * FROM employee
+WHERE FirstName BETWEEN 'Ali' AND 'Zeynep'
+ORDER BY FirstName ASC;
+
+
+-- İşe girişi belirtilen tarih aralığında olan çalışanlar
+SELECT * FROM employee
+WHERE HireDate BETWEEN '2021-09-25' AND '2023-06-19';
