@@ -62,8 +62,15 @@ ORDER BY ProjectName DESC;
 
 
 --/ Self Join --
--- Normal bir birleþtirme iþlemidir, ancak tablo kendisiyle birleþtirilir.
+-- Tablo kendisiyle birleþtirilir.
+-- Ayný tabloyu, sanki iki ayrý tabloymuþ gibi JOIN etmek.
+-- Amaç: ayný tablodaki satýrlarý birbirleriyle karþýlaþtýrmak
+-- Manager-Employee iliþkilerini göstermek için kullanýlabilir
 
---
-SELECT A.EmployeeID, B.EmployeeID, A.Department
-FROM employee A, employee B;
+-- Ayný departmana ait çalýþanlarý, tekrarsýz çiftler halinde listeleme
+SELECT e1.EmployeeID AS Employee_1, e2.EmployeeID AS Employee_2, e1.Department
+FROM employee e1
+JOIN employee e2
+ON e1.Department = e2.Department
+AND e1.EmployeeID < e2.EmployeeID
+ORDER BY e1.Department;
