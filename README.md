@@ -29,4 +29,7 @@ SQL’in temel kavramlarını sağlam bir şekilde öğrenmek ve pekiştirmektir
 - RIGHT JOIN
 - FULL JOIN
 - SELF JOIN
+- UNION / UNION ALL
+- GROUP BY
+- HAVING
 - 
