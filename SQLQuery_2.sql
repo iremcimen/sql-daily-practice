@@ -74,3 +74,4 @@ JOIN employee e2
 ON e1.Department = e2.Department
 AND e1.EmployeeID < e2.EmployeeID
 ORDER BY e1.Department;
+
