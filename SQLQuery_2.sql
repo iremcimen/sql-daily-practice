@@ -8,13 +8,13 @@ GO
 --/ INNER JOIN --
 -- Her iki tabloda da eþleþen deðerlere sahip kayýtlarý döndürür.
 
--- Projelerin çalýþanlarý kim, baþlangýç tarhileri ne?
+-- Projelerin çal??anlar? kim, ba?lang?ç tarhileri ne ?
 SELECT employee.EmployeeID, projects.ProjectName, projects.StartDate
 FROM projects
 INNER JOIN employee
 ON projects.EmployeeID = employee.EmployeeID;
 
--- Çalýþanlarýn hangi projeleri var, baþlangýç tarhileri ne?
+-- Çalýþanlarýn hangi projeleri var, baþlangýç tarhileri ne ?
 SELECT e.EmployeeID, p.ProjectName, p.StartDate
 FROM employee e
 INNER JOIN projects p
@@ -74,4 +74,3 @@ JOIN employee e2
 ON e1.Department = e2.Department
 AND e1.EmployeeID < e2.EmployeeID
 ORDER BY e1.Department;
-
