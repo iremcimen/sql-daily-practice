@@ -32,4 +32,10 @@ SQL’in temel kavramlarını sağlam bir şekilde öğrenmek ve pekiştirmektir
 - UNION / UNION ALL
 - GROUP BY
 - HAVING
+- CASE / WHEN / THEN
+- Constraints(Kısıtlamalar) - (PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CHECK, DEFAULT)
+- ALTER TABLE (ADD, DROP, ALTER COLUMN)
+- TRUNCATE TABLE
+- Tarih ve Zaman Fonksiyonları (DATENAME, DATEPART vb.)
+- İç İçe Sorgular ve Türetilmiş Tablolar (Derived Tables)
 - 
