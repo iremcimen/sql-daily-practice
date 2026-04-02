@@ -1,14 +1,13 @@
-# SQL Günlük Pratik
+# Learning MSSQL
 
-Bu repo, SQL öğrenme sürecimde yaptığım günlük pratikleri ve notları içermektedir.
-Sorgular zamanla ve kademeli olarak eklenmektedir.
+This repository contains my daily SQL practice exercises and notes throughout my learning journey.
+Queries are added gradually over time.
 
-Bu çalışmanın amacı, tek bir örnek tablo üzerinden
-SQL’in temel kavramlarını sağlam bir şekilde öğrenmek ve pekiştirmektir.
+The purpose of this work is to build and reinforce a solid understanding of fundamental SQL concepts using a single sample table.
 
 ---
 
-## İşlenen Konular
+## Topics Covered
 - SELECT / TOP
 - ORDER BY
 - DISTINCT
